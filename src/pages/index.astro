@@ -1,0 +1,283 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { offerings, workflows, site } from '../data/site';
+
+const bookingHref = site.bookingPageUrl || '#booking';
+const bookingTarget = site.bookingPageUrl ? '_blank' : undefined;
+const bookingRel = site.bookingPageUrl ? 'noopener' : undefined;
+---
+<BaseLayout>
+  <main class="page">
+    <section class="hero-shell" id="home">
+      <div class="noise-grid" aria-hidden="true"></div>
+      <header class="site-header">
+        <a class="brand" href="#home" aria-label="New Collar Labs home">
+          <img src="/assets/new-collar-labs-logo.jpg" alt="New Collar Labs logo" class="brand-logo" />
+          <span class="brand-text"><span>NEW</span><span>COLLAR</span><span>LABS</span></span>
+        </a>
+        <nav class="header-actions" aria-label="Primary navigation">
+          <a href={bookingHref} target={bookingTarget} rel={bookingRel} class="btn btn-small btn-outline">Book a free consult</a>
+          <a href="#starter-kit" class="btn btn-small btn-primary">Free AI starter kit</a>
+        </nav>
+      </header>
+
+      <div class="container hero-content">
+        <div class="hero-copy-column">
+          <div class="hero-copy-main">
+            <h1>AI Made Easy for<br />Small Businesses</h1>
+            <p class="hero-tagline">AI Made Easy. AI Made Simple. Results Made Real.</p>
+            <p class="hero-copy">Learn what you can do yourself with AI — and get support when you are ready to automate, organize, or build.</p>
+          </div>
+          <div class="hero-founder-strip">
+            <img class="hero-founder-photo" src="/assets/chandni-roy-founder.png" alt="Portrait of Chandni Roy, Co-Founder" />
+            <div>
+              <h3>Chandni Roy, Co-Founder</h3>
+              <p>Chandni helps small business owners make sense of AI without the jargon — turning everyday pain points into practical workflows for admin, estimates, emails, research, content, and operations.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="lead-card hero-lead-card" id="starter-kit" aria-label="Free AI starter kit form">
+          <h2>Get your free AI starter kit</h2>
+          <form class="lead-form" name="get-started" method="post" data-email-to={site.email} data-guide-url={site.googleDriveGuideUrl} data-subject-prefix={site.emailSubjectPrefix}>
+            <label>
+              <span class="field-label">Full Name <span class="required">*</span></span>
+              <input
+                type="text"
+                name="fullName"
+                autocomplete="name"
+                placeholder="Your full name"
+                minlength="2"
+                maxlength="80"
+                pattern="[A-Za-zÀ-ÖØ-öø-ÿ' .-]{2,80}"
+                title="Please enter a valid name using letters, spaces, hyphens, apostrophes, or periods."
+                required
+              />
+            </label>
+            <label>
+              <span class="field-label">Email <span class="required">*</span></span>
+              <input
+                type="email"
+                name="email"
+                autocomplete="email"
+                placeholder="you@example.com"
+                pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
+                title="Please enter a valid email address."
+                required
+              />
+            </label>
+            <label>
+              <span class="field-label">Business Type <span class="required">*</span></span>
+              <select name="businessType" required>
+                <option value="" selected disabled>Select your business type</option>
+                <option>Retail</option>
+                <option>Restaurant / Cafe / Food Service</option>
+                <option>E-commerce</option>
+                <option>Health & Wellness</option>
+                <option>Beauty / Salon / Spa</option>
+                <option>Trades / Home Services</option>
+                <option>Construction / Contracting</option>
+                <option>Real Estate / Property Management</option>
+                <option>Professional Services</option>
+                <option>Consulting / Coaching</option>
+                <option>Education / Training</option>
+                <option>Nonprofit / Community Organization</option>
+                <option>Event Planning / Hospitality</option>
+                <option>Travel / Tourism</option>
+                <option>Fitness / Recreation</option>
+                <option>Creative / Design / Marketing</option>
+                <option>Technology / Software Services</option>
+                <option>Finance / Bookkeeping / Insurance</option>
+                <option>Legal / Administrative Services</option>
+                <option>Manufacturing / Wholesale</option>
+                <option>Other</option>
+              </select>
+            </label>
+            <label>
+              <span class="field-label">Phone Number <em>optional</em></span>
+              <input
+                type="tel"
+                name="phone"
+                autocomplete="tel"
+                placeholder="Optional"
+                pattern="^\+?[0-9 ()\-.]{7,20}$"
+                title="Please enter a valid phone number using digits, spaces, parentheses, hyphens, periods, or +."
+              />
+            </label>
+            <button type="submit" class="btn btn-primary full-width">Get free AI starter kit</button>
+            <p class="form-status" aria-live="polite"></p>
+          </form>
+        </aside>
+      </div>
+    </section>
+
+    <section class="founder-consult" id="offerings">
+      <div class="container founder-consult-layout">
+        <article class="panel offerings-panel">
+          <h2 class="section-title">How New Collar Labs can help</h2>
+          <p class="section-copy">Learn the tools, find the right use cases, or get practical AI workflows implemented for your business.</p>
+          <div class="offering-list-compact">
+            {offerings.map((item) => (
+              <article class="offering-card">
+                <div class="icon-badge">{item.icon}</div>
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </article>
+
+        <aside class="booking-action-card" id="booking" aria-label="Book a free consultation">
+          <h3>Book your free 15-minute AI consultation</h3>
+          <p>Choose a time that works for you through our secure online booking page. In this short session, we’ll understand your business and identify one practical AI workflow that can save time quickly.</p>
+          <div class="booking-points" aria-label="Consultation details">
+            <span>15 minutes</span>
+            <span>Online booking</span>
+            <span>Any valid email</span>
+            <span>No pressure</span>
+          </div>
+          <a class="btn btn-primary full-width" href={bookingHref} target={bookingTarget} rel={bookingRel}>Book your free consultation</a>
+          <p class="booking-fallback">Having trouble? <a href={bookingHref} target={bookingTarget} rel={bookingRel}>Open booking page in a new tab.</a></p>
+          {!site.bookingPageUrl && (
+            <p class="booking-placeholder">Booking link not connected yet. Paste your public online booking page URL into <code>src/data/site.ts</code>.</p>
+          )}
+        </aside>
+      </div>
+    </section>
+
+    <section class="workflow-section" id="workflows">
+      <div class="container">
+        <div class="center-heading compact">
+          <p class="eyebrow">AI workflows for small businesses</p>
+          <h2 class="section-title">Workflows that save you time</h2>
+        </div>
+
+        <div class="workflow-grid-five">
+          {workflows.map((item) => (
+            <article class="workflow-card-small">
+              <span class="step-label">{item.step}</span>
+              <h3>{item.title}</h3>
+              <small>{item.output}</small>
+            </article>
+          ))}
+        </div>
+
+        <div class="workflow-note">
+          <div>
+            <h2>Small steps. Real business results.</h2>
+            <p>Each workflow is designed to help small business owners reduce manual work, save hours, and use AI inside the tools they already know.</p>
+          </div>
+          <div class="workflow-actions">
+            <a class="btn btn-primary" href={bookingHref} target={bookingTarget} rel={bookingRel}>Book an appointment</a>
+            <a class="btn btn-outline navy" href="#starter-kit">Get free AI starter kit</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <a class="back-to-top" href="#home" aria-label="Back to top">↑</a>
+
+    <footer class="site-footer" id="contact">
+      <div class="container footer-inner">
+        <div>
+          <strong>Contact</strong>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </div>
+        <p>Made in Canada 🇨🇦</p>
+        <p>© 2026 New Collar Labs</p>
+      </div>
+    </footer>
+  </main>
+
+  <script is:inline>
+    const leadForm = document.querySelector('.lead-form');
+
+    if (leadForm) {
+      const status = leadForm.querySelector('.form-status');
+      const guideUrl = leadForm.dataset.guideUrl;
+      const emailTo = leadForm.dataset.emailTo;
+      const subjectPrefix = leadForm.dataset.subjectPrefix || 'New Collar Labs Website Inquiry';
+
+      leadForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        if (!leadForm.checkValidity()) {
+          leadForm.reportValidity();
+          return;
+        }
+
+        const nameInput = leadForm.querySelector('[name="fullName"]');
+        const emailInput = leadForm.querySelector('[name="email"]');
+        const businessTypeInput = leadForm.querySelector('[name="businessType"]');
+        const phoneInput = leadForm.querySelector('[name="phone"]');
+
+        [nameInput, emailInput, businessTypeInput, phoneInput].forEach((input) => {
+          if (input) input.setCustomValidity('');
+        });
+
+        const fullName = String(nameInput?.value || '').trim();
+        const email = String(emailInput?.value || '').trim();
+        const businessType = String(businessTypeInput?.value || '').trim();
+        const phone = String(phoneInput?.value || '').trim();
+
+        const nameValid = /^[A-Za-zÀ-ÖØ-öø-ÿ' .-]{2,80}$/.test(fullName) && /[A-Za-zÀ-ÖØ-öø-ÿ]{2,}/.test(fullName);
+        const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+        const phoneDigits = phone.replace(/\D/g, '');
+        const phoneValid = !phone || (phoneDigits.length >= 7 && phoneDigits.length <= 15 && /^\+?[0-9 ()\-.]{7,20}$/.test(phone));
+
+        if (!nameValid) {
+          nameInput?.setCustomValidity('Please enter a valid name using letters, spaces, hyphens, apostrophes, or periods.');
+        }
+
+        if (!emailValid) {
+          emailInput?.setCustomValidity('Please enter a valid email address.');
+        }
+
+        if (!businessType) {
+          businessTypeInput?.setCustomValidity('Please select your business type.');
+        }
+
+        if (!phoneValid) {
+          phoneInput?.setCustomValidity('Please enter a valid phone number.');
+        }
+
+        if (!leadForm.checkValidity()) {
+          leadForm.reportValidity();
+          return;
+        }
+
+        const payload = {
+          timestamp: new Date().toLocaleString(),
+          fullName,
+          email,
+          businessType,
+          phone,
+          ctaSource: 'Free AI Starter Kit',
+        };
+
+        const subject = `${subjectPrefix} - ${payload.fullName}`;
+        const body = [
+          'New website lead from New Collar Labs:',
+          '',
+          `Customer Name: ${payload.fullName}`,
+          `Email: ${payload.email}`,
+          `Business Type: ${payload.businessType}`,
+          `Phone Number: ${payload.phone || 'Not provided'}`,
+          `CTA Source: ${payload.ctaSource}`,
+          `Submitted At: ${payload.timestamp}`,
+          '',
+          `Guide Link Shared: ${guideUrl}`,
+          'Bonus Material Note: Get instant access to the guide, plus follow-up bonus resources designed to help you turn ideas into real AI workflows.',
+        ].join('\n');
+
+        status.className = 'form-status is-success';
+        status.innerHTML = `Thanks, ${payload.fullName}. <a href="${guideUrl}" target="_blank" rel="noopener">Download the free AI starter guide.</a><br><span>Get instant access to the guide, plus follow-up bonus resources designed to help you turn ideas into real AI workflows.</span>`;
+
+        window.location.href = `mailto:${emailTo}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        leadForm.reset();
+      });
+    }
+  </script>
+</BaseLayout>

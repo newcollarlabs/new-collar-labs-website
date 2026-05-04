@@ -1,0 +1,21 @@
+---
+import '../styles/global.css';
+
+const {
+  title = 'New Collar Labs | Practical AI Workflows for Small Business',
+  description = 'New Collar Labs helps small business owners save time with practical AI training, consultation, and workflow implementation.'
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/jpeg" href="/assets/new-collar-labs-logo.jpg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
