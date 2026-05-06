@@ -145,7 +145,19 @@ const bookingRel = site.bookingPageUrl ? 'noopener' : undefined;
         <div class="starter-content">
           <h2 id="starter-title">Get the free AI starter kit</h2>
           <p>A practical guide with easy-to-implement workflows to save you time right away.</p>
-          <form id="starter-form" class="lead-form" name="starter-kit" data-email-to={site.email} data-guide-url={site.googleDriveGuideUrl} data-subject-prefix={site.emailSubjectPrefix}>
+          <form
+            id="starter-form"
+            class="lead-form"
+            name="starter-kit"
+            data-email-to={site.email}
+            data-guide-url={site.googleDriveGuideUrl}
+            data-subject-prefix={site.emailSubjectPrefix}
+            data-google-form-action={site.googleForm.actionUrl}
+            data-google-field-name={site.googleForm.fields.fullName}
+            data-google-field-email={site.googleForm.fields.email}
+            data-google-field-business={site.googleForm.fields.businessType}
+            data-google-field-source={site.googleForm.fields.source}
+          >
             <div class="field">
               <label for="name">Full name</label>
               <input id="name" name="fullName" type="text" autocomplete="name" required />
@@ -165,7 +177,7 @@ const bookingRel = site.bookingPageUrl ? 'noopener' : undefined;
               Send me the AI starter kit
             </button>
           </div>
-          <p class="secure-note">🔒 We’ll use a real form integration to securely send your kit.</p>
+          <p class="secure-note">🔒 Enter your details to open the starter kit.</p>
           <p class="form-status" aria-live="polite"></p>
         </div>
       </div>
@@ -210,7 +222,7 @@ const bookingRel = site.bookingPageUrl ? 'noopener' : undefined;
     const status = document.querySelector('.form-status');
 
     if (leadForm) {
-      leadForm.addEventListener('submit', (event) => {
+      leadForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         if (!leadForm.checkValidity()) {
           leadForm.reportValidity();
@@ -224,6 +236,69 @@ const bookingRel = site.bookingPageUrl ? 'noopener' : undefined;
         const guideUrl = leadForm.dataset.guideUrl || '';
         const emailTo = leadForm.dataset.emailTo || 'newcollarlabs@gmail.com';
         const subjectPrefix = leadForm.dataset.subjectPrefix || 'New Collar Labs Website Inquiry';
+        const googleFormAction = leadForm.dataset.googleFormAction || '';
+        const googleFields = {
+          fullName: leadForm.dataset.googleFieldName || '',
+          email: leadForm.dataset.googleFieldEmail || '',
+          businessType: leadForm.dataset.googleFieldBusiness || '',
+          source: leadForm.dataset.googleFieldSource || '',
+        };
+        const submitButton = document.querySelector('button[form="starter-form"]');
+
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.textContent = 'Sending...';
+        }
+
+        const showSuccess = () => {
+          if (status) {
+            status.className = 'form-status is-success';
+            status.innerHTML = guideUrl
+              ? `Thanks! Your details were saved. <a href="${guideUrl}" target="_blank" rel="noopener">Open the AI Starter Kit</a>.`
+              : 'Thanks! Your details were saved.';
+          }
+          leadForm.reset();
+        };
+
+        const resetButton = () => {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = '<span aria-hidden="true">⬇</span> Send me the AI starter kit';
+          }
+        };
+
+        if (googleFormAction && googleFields.fullName && googleFields.email) {
+          const googleData = new FormData();
+          googleData.append(googleFields.fullName, name);
+          googleData.append(googleFields.email, email);
+
+          if (googleFields.businessType) {
+            googleData.append(googleFields.businessType, businessType);
+          }
+
+          if (googleFields.source) {
+            googleData.append(googleFields.source, 'AI Starter Kit');
+          }
+
+          try {
+            await fetch(googleFormAction, {
+              method: 'POST',
+              mode: 'no-cors',
+              body: googleData,
+            });
+            showSuccess();
+          } catch (error) {
+            if (status) {
+              status.className = 'form-status is-error';
+              status.textContent = 'Something went wrong. Please try again or email us directly.';
+            }
+          } finally {
+            resetButton();
+          }
+
+          return;
+        }
+
         const subject = encodeURIComponent(`${subjectPrefix}: AI Starter Kit Request`);
         const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nBusiness type: ${businessType}\n\nPlease send me the AI Starter Kit.\n${guideUrl ? `Guide URL: ${guideUrl}` : ''}`);
 
@@ -234,6 +309,7 @@ const bookingRel = site.bookingPageUrl ? 'noopener' : undefined;
             : 'Thanks! Your request is ready. Please send the prefilled email that opens next.';
         }
 
+        resetButton();
         window.location.href = `mailto:${emailTo}?subject=${subject}&body=${body}`;
       });
     }

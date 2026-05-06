@@ -247,6 +247,7 @@ section { padding: 30px 0; }
 .secure-note { margin: 10px 0 0; color: var(--muted); font-size: 13px; font-weight: 700; }
 .form-status { display: none; margin-top: 12px; border-radius: 14px; padding: 12px 14px; font-size: 13.5px; font-weight: 750; }
 .form-status.is-success { display: block; background: rgba(20,184,166,.12); color: #063c39; }
+.form-status.is-error { display: block; background: rgba(239,68,68,.10); color: #7f1d1d; }
 .form-status a { color: var(--blue); font-weight: 950; text-decoration: underline; }
 
 .cta-band { padding: 0 0 10px; background: var(--white); }

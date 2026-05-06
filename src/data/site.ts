@@ -4,6 +4,15 @@ export const site = {
   googleDriveGuideUrl: 'https://docs.google.com/document/d/1ZE2CeFuwQJhMFjzLtgqnWqMSsnJ1wEuCpd2j31GE-L4/edit?usp=drive_link',
   bookingPageUrl: 'https://calendar.app.google/1GdpHgKmZozjCx6K8',
   emailSubjectPrefix: 'New Collar Labs Website Inquiry',
+  googleForm: {
+    actionUrl: '',
+    fields: {
+      fullName: '',
+      email: '',
+      businessType: '',
+      source: '',
+    },
+  },
 };
 
 export const offerings = [

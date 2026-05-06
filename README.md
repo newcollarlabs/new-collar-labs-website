@@ -21,10 +21,10 @@ http://localhost:4321
 - **Book a free consultation** opens the dedicated booking section.
 - After the online booking page URL is added, it opens the online booking page in a new tab.
 
-### Hero form
-- **Get free AI starter kit** collects lead details, reveals the Google Doc guide link, and opens a prefilled email draft to `newcollarlabs@gmail.com`.
-
-> Important: Static websites cannot silently send email without a backend or email service. This version intentionally avoids Google Apps Script and uses a `mailto:` email draft instead. The visitor still needs to click Send in their email app.
+### Starter kit form
+- **Get free AI starter kit** collects lead details and reveals the Google Doc guide link.
+- If Google Form settings are configured in `src/data/site.ts`, the form submits to Google Forms in the background.
+- If Google Form settings are blank, the site falls back to the older prefilled email draft behavior.
 
 ### Offerings CTA
 - **Book a free consultation** opens the online booking experience.
@@ -50,6 +50,34 @@ The guide link is configured in `src/data/site.ts`:
 ```ts
 googleDriveGuideUrl: 'https://docs.google.com/document/d/1ZE2CeFuwQJhMFjzLtgqnWqMSsnJ1wEuCpd2j31GE-L4/edit?usp=drive_link',
 ```
+
+## Google Form lead capture
+
+The starter kit form can save leads to a Google Form without opening an email app.
+
+1. Create a Google Form with these fields:
+   - Full name
+   - Email
+   - Business type
+   - Source
+2. Link the Google Form to a Google Sheet.
+3. Open the form preview, inspect the form action URL, and copy the `formResponse` URL.
+4. Find each field's `entry.xxxxx` ID.
+5. Paste those values into `src/data/site.ts`:
+
+```ts
+googleForm: {
+  actionUrl: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse',
+  fields: {
+    fullName: 'entry.111111111',
+    email: 'entry.222222222',
+    businessType: 'entry.333333333',
+    source: 'entry.444444444',
+  },
+},
+```
+
+Once those values are filled in, submissions are saved in Google Forms/Sheets in the background and the AI Starter Kit link is shown on the page.
 
 ## Email subject format
 
@@ -77,7 +105,7 @@ The email body includes:
 - Sticky back-to-top arrow.
 
 ## Form behavior
-The Free AI Starter Kit form opens a prefilled email draft to `newcollarlabs@gmail.com` and reveals the Google Doc starter kit link. This avoids Google Apps Script for the current static-site version.
+The Free AI Starter Kit form submits to Google Forms when the Google Form action URL and field IDs are configured in `src/data/site.ts`. If those values are blank, it opens a prefilled email draft to `newcollarlabs@gmail.com` as a fallback.
 
 ## Online booking
 Create an online booking page, then paste the public booking URL into `src/data/site.ts`:
