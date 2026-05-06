@@ -1,0 +1,5 @@
+{
+  "buildCommand": "npm run build",
+  "installCommand": "npm ci --registry=https://registry.npmjs.org",
+  "outputDirectory": "dist"
+}
