@@ -1,16 +1,16 @@
 export const site = {
   name: 'New Collar Labs',
   email: 'newcollarlabs@gmail.com',
-  googleDriveGuideUrl: 'https://docs.google.com/document/d/1ZE2CeFuwQJhMFjzLtgqnWqMSsnJ1wEuCpd2j31GE-L4/edit?usp=drive_link',
+  googleDriveGuideUrl: 'https://drive.google.com/file/d/11Hqpw13-KkxS7PC7JfAd34pfP3oUmZZO/view?usp=drive_link',
   bookingPageUrl: 'https://calendar.app.google/1GdpHgKmZozjCx6K8',
   emailSubjectPrefix: 'New Collar Labs Website Inquiry',
   googleForm: {
-    actionUrl: '',
+    actionUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSeC9QevsNFNPGCM-2xFbDWkkDMq13jjYZiXppmWYuZIFvIucQ/formResponse',
     fields: {
-      fullName: '',
-      email: '',
-      businessType: '',
-      source: '',
+      fullName: 'entry.482780878',
+      email: 'entry.1458186603',
+      businessType: 'entry.1963389150',
+      source: 'entry.2096797047',
     },
   },
 };
