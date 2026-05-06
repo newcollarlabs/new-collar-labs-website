@@ -180,6 +180,7 @@ section { padding: 30px 0; }
 .section-heading h2 { margin: 0; color: var(--navy); font-size: clamp(30px,4vw,44px); line-height: 1.08; letter-spacing: -.05em; }
 .section-heading p { margin: 6px auto 0; max-width: 680px; color: var(--muted); font-size: 15px; }
 .soft-section, .help-section, .workflow-section { background: #fff; padding-top: 18px; padding-bottom: 20px; }
+.help-section { padding-top: 6px; }
 .section-panel { border-radius: 26px; padding: 24px; border: 1px solid rgba(11,31,58,.10); box-shadow: 0 12px 28px rgba(11,31,58,.06); }
 .lose-time-panel { background: linear-gradient(180deg, #F8FBFF 0%, #EFF6FF 100%); }
 .help-panel { background: linear-gradient(180deg, #F8FBFF 0%, #EFF7FF 100%); }
