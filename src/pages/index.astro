@@ -1,0 +1,241 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { offerings, workflows, site } from '../data/site';
+
+const bookingHref = site.bookingPageUrl || '#consultation';
+const bookingTarget = site.bookingPageUrl ? '_blank' : undefined;
+const bookingRel = site.bookingPageUrl ? 'noopener' : undefined;
+---
+<BaseLayout>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home" aria-label="New Collar Labs home">
+        <img src="/assets/new-collar-labs-logo.jpg" alt="New Collar Labs logo" class="brand-logo" />
+        <span class="brand-name"><span>NEW COLLAR</span><span>LABS</span></span>
+      </a>
+      <a class="btn btn-primary header-cta" href={bookingHref} target={bookingTarget} rel={bookingRel}>Book a free consult</a>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy-block">
+          <span class="pill">AI that works for real businesses</span>
+          <h1 id="hero-title">AI Made Practical for Small Businesses</h1>
+          <p class="hero-line">AI Made Simple. Results Made Real.</p>
+          <p class="hero-copy">Save hours every week on admin, emails, estimates, research, and repetitive tasks — so you can focus on what matters most.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href={bookingHref} target={bookingTarget} rel={bookingRel} aria-label="Book a free 15-minute consultation">
+              <span aria-hidden="true">📅</span>
+              Book a free 15-minute consultation
+            </a>
+            <a class="btn btn-secondary" href="#starter-kit" aria-label="Get the free AI starter kit">
+              <span aria-hidden="true">⬇</span>
+              Get the free AI starter kit
+            </a>
+          </div>
+          <p class="micro-note">🛡 No spam. Unsubscribe anytime.</p>
+        </div>
+
+        <article class="founder-card" id="about" aria-label="Co-founder profile">
+          <div class="founder-heading">
+            <div class="founder-photo-wrap">
+              <img class="founder-photo" src="/assets/chandni-roy-founder.png" alt="Chandni Roy, Co-Founder of New Collar Labs" />
+            </div>
+            <div class="founder-title-block">
+              <h2>Chandni Roy</h2>
+              <p class="founder-role">Co-Founder of<br />New Collar Labs</p>
+            </div>
+          </div>
+          <div class="founder-content">
+            <p class="founder-text">I help Small Businesses use AI in practical, no-jargon ways — so you save time, work smarter, and grow with confidence.</p>
+            <div class="trust-list">
+              <span class="trust-chip"><span class="check">✓</span>Practical AI for real work</span>
+              <span class="trust-chip"><span class="check">✓</span>Small Business focused</span>
+              <span class="trust-chip"><span class="check">✓</span>Clear, no-jargon approach</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="soft-section" aria-labelledby="lose-time-title">
+      <div class="container">
+        <div class="section-panel lose-time-panel">
+          <div class="section-heading">
+            <h2 id="lose-time-title">Where Small Businesses lose time</h2>
+            <p>The everyday tasks that quietly eat into time, energy, and follow-through.</p>
+          </div>
+          <div class="card-grid-4">
+            <article class="card pain-card">
+              <div class="icon-circle">✉️</div>
+              <h3>Emails pile up</h3>
+              <p>Important emails get buried and responses take too long.</p>
+            </article>
+            <article class="card pain-card">
+              <div class="icon-circle teal">🕒</div>
+              <h3>Quotes and estimates take too long</h3>
+              <p>Manual work slows down turnaround and follow-ups.</p>
+            </article>
+            <article class="card pain-card">
+              <div class="icon-circle indigo">📋</div>
+              <h3>Repetitive admin every week</h3>
+              <p>Data entry, reporting, and updates eat up valuable time.</p>
+            </article>
+            <article class="card pain-card">
+              <div class="icon-circle">💬</div>
+              <h3>Social media content not consistent</h3>
+              <p>Posting is irregular and content creation often gets delayed.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="help-section" id="offerings" aria-labelledby="help-title">
+      <div class="container">
+        <div class="section-panel help-panel">
+          <div class="section-heading">
+            <h2 id="help-title">How we help</h2>
+            <p>Practical support that takes you from learning AI to using it in your daily business operations.</p>
+          </div>
+          <div class="card-grid-3">
+            {offerings.map((item) => (
+              <article class="card help-card">
+                <div class="icon-circle">{item.icon}</div>
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="workflow-section" id="workflows" aria-labelledby="workflow-title">
+      <div class="container">
+        <div class="section-panel workflow-panel">
+          <div class="section-heading">
+            <h2 id="workflow-title">Workflows that save you time</h2>
+            <p>Simple, useful workflows designed around the repetitive tasks that slow your team down.</p>
+          </div>
+          <div class="workflow-grid">
+            {workflows.map((item, index) => (
+              <article class="card workflow-card">
+                <div class={`icon-circle ${index === 0 || index === 3 ? 'teal' : index === 2 ? 'indigo' : ''}`}>{['🧾','✉️','🔍','✏️','▦'][index]}</div>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="starter-section" id="starter-kit" aria-labelledby="starter-title">
+      <div class="container starter-grid">
+        <aside class="book-cover" aria-label="AI Starter Kit for Small Businesses visual">
+          <div class="book-logo"><img src="/assets/new-collar-labs-logo.jpg" alt="" />NEW COLLAR LABS</div>
+          <h3>AI Starter Kit for Small Businesses</h3>
+          <p>Practical workflows. Real results.</p>
+        </aside>
+        <div class="starter-content">
+          <h2 id="starter-title">Get the free AI starter kit</h2>
+          <p>A practical guide with easy-to-implement workflows to save you time right away.</p>
+          <form id="starter-form" class="lead-form" name="starter-kit" data-email-to={site.email} data-guide-url={site.googleDriveGuideUrl} data-subject-prefix={site.emailSubjectPrefix}>
+            <div class="field">
+              <label for="name">Full name</label>
+              <input id="name" name="fullName" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="business">Business type <span>(optional)</span></label>
+              <input id="business" name="businessType" type="text" />
+            </div>
+          </form>
+          <div class="form-button-row">
+            <button class="btn btn-primary" type="submit" form="starter-form">
+              <span aria-hidden="true">⬇</span>
+              Send me the AI starter kit
+            </button>
+          </div>
+          <p class="secure-note">🔒 We’ll use a real form integration to securely send your kit.</p>
+          <p class="form-status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band" id="consultation">
+      <div class="container">
+        <div class="cta-card">
+          <div>
+            <h2>Ready to save time with AI?</h2>
+            <p>Let’s find the right workflows for your business.</p>
+          </div>
+          <a class="btn btn-primary" href={bookingHref} target={bookingTarget} rel={bookingRel}>
+            <span aria-hidden="true">📅</span>
+            Book a free 15-minute consultation
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <div class="container footer-card">
+      <div class="footer-left">
+        <img class="footer-logo" src="/assets/new-collar-labs-logo.jpg" alt="New Collar Labs logo" />
+        <div>
+          <h4>NEW COLLAR LABS</h4>
+          <p>Practical AI solutions and training for Small Businesses.</p>
+        </div>
+      </div>
+      <div class="footer-contact">
+        <a href={`mailto:${site.email}`}>✉️ {site.email}</a>
+        <p class="made">Made in Canada 🇨🇦</p>
+      </div>
+    </div>
+  </footer>
+
+  <a class="back-to-top" href="#home" aria-label="Back to top">↑</a>
+
+  <script is:inline>
+    const leadForm = document.querySelector('.lead-form');
+    const status = document.querySelector('.form-status');
+
+    if (leadForm) {
+      leadForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (!leadForm.checkValidity()) {
+          leadForm.reportValidity();
+          return;
+        }
+
+        const data = new FormData(leadForm);
+        const name = data.get('fullName') || '';
+        const email = data.get('email') || '';
+        const businessType = data.get('businessType') || 'Not provided';
+        const guideUrl = leadForm.dataset.guideUrl || '';
+        const emailTo = leadForm.dataset.emailTo || 'newcollarlabs@gmail.com';
+        const subjectPrefix = leadForm.dataset.subjectPrefix || 'New Collar Labs Website Inquiry';
+        const subject = encodeURIComponent(`${subjectPrefix}: AI Starter Kit Request`);
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nBusiness type: ${businessType}\n\nPlease send me the AI Starter Kit.\n${guideUrl ? `Guide URL: ${guideUrl}` : ''}`);
+
+        if (status) {
+          status.className = 'form-status is-success';
+          status.innerHTML = guideUrl
+            ? `Thanks! Your request is ready. <a href="${guideUrl}" target="_blank" rel="noopener">Open the AI Starter Kit</a> or send the prefilled email that opens next.`
+            : 'Thanks! Your request is ready. Please send the prefilled email that opens next.';
+        }
+
+        window.location.href = `mailto:${emailTo}?subject=${subject}&body=${body}`;
+      });
+    }
+  </script>
+</BaseLayout>
